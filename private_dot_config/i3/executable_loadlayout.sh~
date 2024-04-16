@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# First we append the saved layout of worspace N to workspace M
+i3-msg "workspace 3: term; append_layout ~/.config/i3/workspace-term.json"
+i3-msg "workspace 9: term; append_layout ~/.config/i3/workspace-term.json"
+i3-msg "workspace 1: dev; append_layout ~/.config/i3/workspace-dev.json"
+i3-msg "workspace 8: chat; append_layout ~/.config/i3/workspace-chat.json"
+i3-msg "workspace 5: files; append_layout ~/.config/i3/workspace-files.json"
+i3-msg "workspace 6: serial; append_layout ~/.config/i3/workspace-serial.json"
+i3-msg "workspace 7: web; append_layout ~/.config/i3/workspace-web.json"
+i3-msg "workspace 2: web; append_layout ~/.config/i3/workspace-web.json"
+
+# And finally we fill the containers with the programs they had
+(urxvt &)
+(urxvt &)
+(urxvt &)
+(urxvt &)
+
+(urxvt &)
+(urxvt &)
+(urxvt &)
+(urxvt &)
+
+
+(geany &)
+(urxvt &)
+(urxvt &)
+
+(signal-desktop &)
+
+
+(krusader &)
+
+
+(cutecom &)
+(cutecom &)
+
+
+(firefox &)
+
+(firefox --new-window google.de &)

@@ -1,0 +1,125 @@
+# /etc/zsh/zshrc: system-wide .zshrc file for zsh(1).
+#
+# This file is sourced only for interactive shells. It
+# should contain commands to set up aliases, functions,
+# options, key bindings, etc.
+#
+# Global Order: zshenv, zprofile, zshrc, zlogin
+
+READNULLCMD=${PAGER:-/usr/bin/pager}
+
+#export PS1=$'%{\e[1;34m%}%m%{\e[0;1m%}%{\e[0;31m%}[ %3~ ]%{\e[0;1m%}% $ ';
+
+##PROMPT
+autoload -U promptinit compinit colors
+promptinit
+colors
+
+#if [[ "$USER" == root ]]; then
+#export PS1=$'%{\e[1;34m%}%m%{\e[0;1m%}%{\e[0;31m%}[ %3~ ]%{\e[0;0m%}% # ';
+#PROMPT="$fg_bold[blue]%n@%m%{$fg_no_bold[red]%}[ %3~ ]%{$reset_color%} $(git_super_status) %# " 
+   
+#else
+#group=`cat /etc/group |grep th3link |grep operator |wc -l` 
+#if [[ "$group" == 1 ]]; then
+#export PS1=$'%{\e[1;34m%}%m%{\e[0;1m%}%{\e[0;31m%}[ %3~ ]%{\e[0;1m%}% % ';
+#else
+#export PS1=$'%{\e[1;34m%}%m%{\e[0;1m%}%{\e[0;31m%}[ %3~ ]%{\e[0;0m%}% $ ';
+#fi
+
+# create a zkbd compatible hash;
+# to add other keys to this hash, see: man 5 terminfo
+typeset -A key
+
+key[Home]=${terminfo[khome]}
+key[End]=${terminfo[kend]}
+key[Insert]=${terminfo[kich1]}
+key[Delete]=${terminfo[kdch1]}
+key[Up]=${terminfo[kcuu1]}
+key[Down]=${terminfo[kcud1]}
+key[Left]=${terminfo[kcub1]}
+key[Right]=${terminfo[kcuf1]}
+key[PageUp]=${terminfo[kpp]}
+key[PageDown]=${terminfo[knp]}
+
+# setup key accordingly
+[[ -n "${key[Home]}"     ]]  && bindkey  "${key[Home]}"     beginning-of-line
+[[ -n "${key[End]}"      ]]  && bindkey  "${key[End]}"      end-of-line
+[[ -n "${key[Insert]}"   ]]  && bindkey  "${key[Insert]}"   overwrite-mode
+[[ -n "${key[Delete]}"   ]]  && bindkey  "${key[Delete]}"   delete-char
+[[ -n "${key[Up]}"       ]]  && bindkey  "${key[Up]}"       up-line-or-history
+[[ -n "${key[Down]}"     ]]  && bindkey  "${key[Down]}"     down-line-or-history
+[[ -n "${key[Left]}"     ]]  && bindkey  "${key[Left]}"     backward-char
+[[ -n "${key[Right]}"    ]]  && bindkey  "${key[Right]}"    forward-char
+[[ -n "${key[PageUp]}"   ]]  && bindkey  "${key[PageUp]}"   beginning-of-buffer-or-history
+[[ -n "${key[PageDown]}" ]]  && bindkey  "${key[PageDown]}" end-of-buffer-or-history
+
+# Keypad
+# 0 . Enter
+bindkey -s "^[Op" "0"
+bindkey -s "^[On" "."
+bindkey -s "^[OM" "^M"
+# 1 2 3
+bindkey -s "^[Oq" "1"
+bindkey -s "^[Or" "2"
+bindkey -s "^[Os" "3"
+# 4 5 6
+bindkey -s "^[Ot" "4"
+bindkey -s "^[Ou" "5"
+bindkey -s "^[Ov" "6"
+# 7 8 9
+bindkey -s "^[Ow" "7"
+bindkey -s "^[Ox" "8"
+bindkey -s "^[Oy" "9"
+# + -  * / =
+bindkey -s "^[Ok" "+"
+bindkey -s "^[Om" "-"
+bindkey -s "^[Oj" "*"
+bindkey -s "^[Oo" "/"
+bindkey -s "^[OX" "="
+
+# Finally, make sure the terminal is in application mode, when zle is
+# active. Only then are the values from $terminfo valid.
+if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
+    function zle-line-init () {
+        printf '%s' "${terminfo[smkx]}"
+    }
+    function zle-line-finish () {
+        printf '%s' "${terminfo[rmkx]}"
+    }
+    zle -N zle-line-init
+    zle -N zle-line-finish
+fi
+
+
+##HISTORY
+[[ -n "${key[PageUp]}"   ]]  && bindkey  "${key[PageUp]}"    history-beginning-search-backward
+[[ -n "${key[PageDown]}" ]]  && bindkey  "${key[PageDown]}"  history-beginning-search-forward
+export HISTSIZE=2000
+export HISTFILE="$HOME/.history"
+export SAVEHIST=$HISTSIZE
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt APPEND_HISTORY
+setopt HIST_IGNORE_DUPS
+
+setopt autocd
+setopt extendedglob
+
+PROMPT="%{$fg_bold[blue]%}%n@%m%{$fg_no_bold[red]%}[ %3~ ]%{$reset_color%}%# " 
+
+##COMAMND NOT FOUND
+[ -r /etc/profile.d/cnf.sh ] && . /etc/profile.d/cnf.sh
+
+source /etc/zsh/zaliases
+
+##AUTOCOMPLETE
+zstyle ':completion:*' menu select
+setopt completealiases
+#setopt correctall
+
+compinit
+
+export TERM=xterm-256color
+
+source /etc/environment

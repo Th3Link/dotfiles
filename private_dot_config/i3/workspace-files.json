@@ -1,0 +1,12 @@
+// vim:ts=4:sw=4:et
+{
+    "name": "Krusader",
+    "percent": 1,
+    "swallows": [
+       {
+       "class": "^krusader$"
+       }
+    ],
+    "type": "con"
+}
+

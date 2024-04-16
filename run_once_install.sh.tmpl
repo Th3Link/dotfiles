@@ -1,0 +1,56 @@
+#!/bin/sh
+
+if [ "$(uname -s)" == "Linux" ]; then
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+
+        case "$ID" in
+        'arch')
+            echo 'Arch Linux!'
+            sudo pacman -S --needed --noconfirm i3 i3blocks krusader qt5-style-kvantum qt5-style-kvantum-themes arc-theme arc-kde breeze-icon-theme kitty kitty-terminfo
+            # code for Arch goes here
+            ;;
+        'debian'|'raspbian')
+            echo 'Debian!'
+            # code for Debian/Raspbian goes here
+            ;;
+        'ubuntu')
+            sudo apt update && sudo apt install  --no-install-recommends -qfy i3 i3blocks krusader qt5-style-kvantum qt5-style-kvantum-themes arc-theme arc-kde breeze-icon-theme kitty kitty-terminfo
+            case "$VERSION_ID" in
+            '20.04')
+                echo 'Ubuntu 20.04!'
+                # code for Ubuntu 20.04 goes here
+                ;;
+            '22.04')
+                # code for Ubuntu 22.04 goes here
+                echo 'Ubuntu 22.04!'
+                curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+                mkdir -p $HOME/applications $HOME/bin
+                sudo rm -rf $HOME/applications/nvim
+                sudo tar -C $HOME/applications -xzf nvim-linux64.tar.gz
+               
+                cd $HOME/applications && curl --remote-name \
+                    --remote-header-name \
+                    --location $(curl -s https://api.github.com/repos/flameshot-org/flameshot/releases/latest \
+                    | grep -Po 'https://github.com/flameshot-org/flameshot/releases/download/[^}]*\.AppImage' \
+                    | uniq)
+                chmod +x Flameshot-*.x86_64.AppImage
+                ln -s $HOME/applications/Flameshot-*.x86_64.AppImage $HOME/bin/flameshot
+               
+                ;;
+            *)
+                echo 'Other Ubuntu version!'
+                # code for other Ubuntu versions
+                ;;
+            esac
+            ;;
+        *)
+            echo 'Unsupported distro!'
+            ;;
+        esac
+    else
+        echo 'Older or unrecognized Linux distribution'
+    fi
+else
+   echo 'Unsupported OS!'
+fi
