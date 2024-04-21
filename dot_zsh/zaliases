@@ -15,4 +15,3 @@ alias vim='nvim'
 alias ssh='[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"'
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias ll="eza --color=always --long --git --icons=always"
-alias lstree="eza --color=always --long --git --no-time --tree --level=$1"
