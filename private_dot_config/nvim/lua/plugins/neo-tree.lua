@@ -16,6 +16,11 @@ return {
                 --never_show = {},
             },
         },
+        window = {
+            mappings = {
+                ["h"] = { "show_help", nowait = false, config = { title = "help", prefix_key = "" } },
+            },
+        },
     },
     dependencies = {
         "nvim-lua/plenary.nvim",
@@ -23,14 +28,15 @@ return {
         "MunifTanjim/nui.nvim",
     },
     config = function(_, opts)
-        vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left<CR>", {})
-        vim.keymap.set("n", "<leader>bf", ":Neotree buffers reveal float<CR>", {})
+        vim.keymap.set("n", "<leader>nn", ":Neotree filesystem reveal left<CR>", {})
+        vim.keymap.set("n", "<leader>nf", ":Neotree buffers reveal float<CR>", {})
         require("neo-tree").setup(opts)
         vim.api.nvim_create_autocmd("VimEnter", {
-            command = "set nornu nonu | Neotree toggle",
+            --command = "set nornu nonu | Neotree toggle",
+            command = "Neotree toggle",
         })
-        vim.api.nvim_create_autocmd("BufEnter", {
-            command = "set rnu nu",
-        })
+        --vim.api.nvim_create_autocmd("BufEnter", {
+        --command = "set rnu nu",
+        --})
     end,
 }

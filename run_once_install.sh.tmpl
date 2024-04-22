@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ "$(uname -s)" == "Linux" ]; then
     if [ -f /etc/os-release ]; then
@@ -7,9 +7,10 @@ if [ "$(uname -s)" == "Linux" ]; then
         case "$ID" in
         'arch')
             echo 'Arch Linux!'
-            sudo pacman -S --needed --noconfimm arc-gtk-theme arc-icon-theme breeze-icons kvantum kvantum-qt5
-            sudo pacman -S --needed --noconfirm i3 i3blocks dunst krusader  kitty kitty-terminfo zoxide fzf tmux npm nvim eza fd thefuck git-delta bat dfc cdu tealdeer
+            sudo pacman -S --needed --noconfimm arc-gtk-theme arc-icon-theme breeze-icons kvantum kvantum-qt5 git curl wget
+            sudo pacman -S --needed --noconfirm i3 i3blocks dunst krusader  kitty kitty-terminfo zoxide fzf npm nvim eza fd thefuck git-delta bat dfc cdu tealdeer btop atuin dust zsh
             trizen -S --needed --noconfirm cdu
+            git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
             # code for Arch goes here
             ;;
         'debian'|'raspbian')
@@ -17,7 +18,10 @@ if [ "$(uname -s)" == "Linux" ]; then
             # code for Debian/Raspbian goes here
             ;;
         'ubuntu')
-            sudo apt update && sudo apt install  --no-install-recommends -qfy i3 i3blocks krusader qt5-style-kvantum qt5-style-kvantum-themes arc-theme arc-kde breeze-icon-theme kitty kitty-terminfo
+            sudo apt update && sudo apt install  --no-install-recommends -qfy git curl pavucontrol python3-dev python3-pip python3-setuptools i3 i3blocks dunst krusader konsole kdiff3 krename p7zip-full unzip zip unrar rar qt5-style-kvantum qt5-style-kvantum-themes arc-theme breeze-icon-theme papirus-icon-theme kitty kitty-terminfo wget npm tmux zsh
+            
+            wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/install.sh | sh
+            
             case "$VERSION_ID" in
             '20.04')
                 echo 'Ubuntu 20.04!'
@@ -26,11 +30,12 @@ if [ "$(uname -s)" == "Linux" ]; then
             '22.04')
                 # code for Ubuntu 22.04 goes here
                 echo 'Ubuntu 22.04!'
+                sudo apt install --no-install-recommends -qfy python3.10-venv
                 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
                 mkdir -p $HOME/applications $HOME/bin
                 sudo rm -rf $HOME/applications/nvim
                 sudo tar -C $HOME/applications -xzf nvim-linux64.tar.gz
-               
+                ln -s $HOME/applications/nvim-linux64/bin/nvim $HOME/bin/nvim
                 cd $HOME/applications && curl --remote-name \
                     --remote-header-name \
                     --location $(curl -s https://api.github.com/repos/flameshot-org/flameshot/releases/latest \
@@ -45,6 +50,33 @@ if [ "$(uname -s)" == "Linux" ]; then
                 # code for other Ubuntu versions
                 ;;
             esac
+            
+			mkdir -p $HOME/applications $HOME/bin
+            git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/applications/powerlevel10k
+            git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+            
+            git clone https://github.com/junegunn/fzf.git $HOME/applications/fzf
+            ln -s $HOME/applications/fzf/bin/fzf $HOME/bin/fzf
+            $HOME/applications/fzf/install --key-bindings --completion --no-bash --no-fish --no-zsh
+            
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-update-default-toolchain --no-modify-path
+            source "$HOME/.cargo/env"
+            rustup default stable
+            cargo install --locked zoxide # better cd
+            cargo install --locked eza # better ls
+            cargo install --locked bat # better cat
+            cargo install --locked atuin # shell history
+            cargo install --locked zellij # terminal multiplexer
+            cargo install --locked git-delta # better diffs
+            mkdir -p "$(bat --config-dir)/themes"
+            wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme
+            
+            python3 -m venv $HOME/applications/thefuck
+            source $HOME/applications/thefuck/bin/activate
+            pip3 install thefuck
+            deactivate
+            
+            rustup update
             ;;
         *)
             echo 'Unsupported distro!'
@@ -53,6 +85,7 @@ if [ "$(uname -s)" == "Linux" ]; then
     else
         echo 'Older or unrecognized Linux distribution'
     fi
+
 else
    echo 'Unsupported OS!'
 fi

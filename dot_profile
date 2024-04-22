@@ -1,6 +1,4 @@
 export PATH=$HOME/bin:$PATH
-export EDITOR=/usr/bin/nvim
-export GEM_HOME="$(gem env user_gemhome)"
-export PATH="$PATH:$GEM_HOME/bin"
+export EDITOR=nvim
 export DESKTOP_SESSION=KDE
 #export XDG_CURRENT_DESKTOP=KDE
