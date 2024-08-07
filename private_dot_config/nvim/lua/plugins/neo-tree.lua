@@ -32,11 +32,16 @@ return {
         vim.keymap.set("n", "<leader>nf", ":Neotree buffers reveal float<CR>", {})
         require("neo-tree").setup(opts)
         vim.api.nvim_create_autocmd("VimEnter", {
+            callback = function()
+                if vim.fn.argc() == 0 then
+                    vim.cmd("set nornu nonu | Neotree toggle")
+                end
+            end,
             --command = "set nornu nonu | Neotree toggle",
-            command = "Neotree toggle",
+            --command = "Neotree toggle",
         })
-        --vim.api.nvim_create_autocmd("BufEnter", {
-        --command = "set rnu nu",
-        --})
+        vim.api.nvim_create_autocmd("BufEnter", {
+            command = "set nu",
+        })
     end,
 }
