@@ -8,10 +8,6 @@ return {
                 disable_when_zoomed = true, -- defaults to false
             })
 
-            vim.keymap.set("n", "<A-n>", nvim_tmux_nav.NvimTmuxNavigateLeft)
-            vim.keymap.set("n", "<A-r>", nvim_tmux_nav.NvimTmuxNavigateDown)
-            vim.keymap.set("n", "<A-t>", nvim_tmux_nav.NvimTmuxNavigateUp)
-            vim.keymap.set("n", "<A-d>", nvim_tmux_nav.NvimTmuxNavigateRight)
             vim.keymap.set("n", "<A-Left>", nvim_tmux_nav.NvimTmuxNavigateLeft)
             vim.keymap.set("n", "<A-Right>", nvim_tmux_nav.NvimTmuxNavigateDown)
             vim.keymap.set("n", "<A-Up>", nvim_tmux_nav.NvimTmuxNavigateUp)
@@ -33,4 +29,3 @@ return {
     --  opts = {},
     --}
 }
-
