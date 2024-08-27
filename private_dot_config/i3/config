@@ -210,5 +210,4 @@ exec i3-msg "workspace $ws_dev; append_layout ~/.config/i3/workspace-dev.json"
 exec i3-msg "workspace $ws_chat; append_layout ~/.config/i3/workspace-chat.json"
 exec i3-msg "workspace $ws_files; append_layout ~/.config/i3/workspace-files.json"
 exec i3-msg "workspace $ws_web1; append_layout ~/.config/i3/workspace-web.json"
-
-exec ~/.config/i3/loadlayout.sh
+exec kbuildsycoca6 && kbuildsycoca5 && ~/.config/i3/loadlayout.sh

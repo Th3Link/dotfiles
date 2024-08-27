@@ -28,8 +28,8 @@ return {
         "MunifTanjim/nui.nvim",
     },
     config = function(_, opts)
-        vim.keymap.set("n", "<leader>nn", ":Neotree filesystem reveal left<CR>", {})
-        vim.keymap.set("n", "<leader>nf", ":Neotree buffers reveal float<CR>", {})
+        vim.keymap.set("n", "<leader>nn", ":Neo[t]ree filesystem reveal left<CR>", {})
+        vim.keymap.set("n", "<leader>nf", ":Neotree buffers reveal [f]loat<CR>", {})
         require("neo-tree").setup(opts)
         vim.api.nvim_create_autocmd("VimEnter", {
             callback = function()

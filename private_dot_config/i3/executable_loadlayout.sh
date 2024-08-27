@@ -10,7 +10,12 @@
 
 (kitty -1 --name kitty_dev_1 --listen-on "/tmp/kitty-instance-$DISPLAY" --session $HOME/.config/i3/kitty-dev-session &)
 
+(signal-desktop --password-store="gnome-libsecret" &)
+
 (krusader &)
 
+(firefox &)
 (nm-applet &)
 (flameshot &)
+(nextcloud &)
+(/home/marc/bin/display-watcher.sh &)
