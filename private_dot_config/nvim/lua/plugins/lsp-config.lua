@@ -153,7 +153,29 @@ return {
                 cmake = {},
                 -- gopls = {},
                 -- pyright = {},
-                rust_analyzer = {},
+                rust_analyzer = {
+                    settings = {
+                        ["rust-analyzer"] = {
+                            cargo = {
+                                allFeatures = true,
+                                loadOutDirsFromCheck = true,
+                                runBuildScripts = true,
+                            },
+                            -- Add clippy lints for Rust.
+                            checkOnSave = {
+                                allFeatures = true,
+                                command = "clippy",
+                                extraArgs = {
+                                    "--",
+                                    "--no-deps",
+                                    "-Dclippy::correctness",
+                                    "-Dclippy::complexity",
+                                    "-Wclippy::perf",
+                                },
+                            },
+                        },
+                    },
+                },
                 dockerls = {},
                 docker_compose_language_service = {},
                 cssls = {},
