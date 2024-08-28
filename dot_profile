@@ -2,3 +2,4 @@ export PATH=$HOME/bin:$PATH
 export EDITOR=nvim
 export DESKTOP_SESSION=KDE
 #export XDG_CURRENT_DESKTOP=KDE
+. "$HOME/.rye/env"

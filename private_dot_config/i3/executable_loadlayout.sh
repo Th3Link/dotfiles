@@ -10,11 +10,7 @@
 
 (kitty -1 --name kitty_dev_1 --listen-on "/tmp/kitty-instance-$DISPLAY" --session $HOME/.config/i3/kitty-dev-session &)
 
-(signal-desktop &)
-
 (krusader &)
 
-(firefox &)
 (nm-applet &)
 (flameshot &)
-(nextcloud &)

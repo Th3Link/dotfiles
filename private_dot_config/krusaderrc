@@ -303,5 +303,8 @@ Window Height=608
 Window Maximized=false
 Window Width=1000
 
+[UserActions]
+Terminal=konsole --profile zsh --noclose --workdir %d --title %t -e
+
 [ViewerModule]
 FirstRun=false

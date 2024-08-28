@@ -112,15 +112,15 @@ setopt completealiases
 compinit
 source /etc/environment
 source ${HOME}/.zsh/zshenv
-source $HOME/applications/thefuck/bin/activate
-export PATH=$HOME/bin:$PATH
+#source $HOME/applications/thefuck/bin/activate
 
 [[ ! -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]] || source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f $HOME/applications/powerlevel10k/powerlevel10k.zsh-theme ]] || source $HOME/applications/powerlevel10k/powerlevel10k.zsh-theme
-[[ ! -f $HOME/.cargo/env ]] || source "$HOME/.cargo/env"
+#[[ ! -f $HOME/.cargo/env ]] || source "$HOME/.cargo/env"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export PATH=$HOME/.cargo/bin:$HOME/applications/thefuck/bin:$HOME/bin:/opt/pulsesecure/bin:$PATH
 
 eval "$(zoxide init zsh)"
 eval "$(fzf --zsh)"
