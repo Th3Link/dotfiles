@@ -6,11 +6,38 @@ vim.g.background = "light"
 
 vim.opt.swapfile = false
 
+-- Unmap hjkl in normal mode
+vim.api.nvim_set_keymap("n", "h", "", { noremap = true })
+vim.api.nvim_set_keymap("n", "j", "", { noremap = true })
+vim.api.nvim_set_keymap("n", "k", "", { noremap = true })
+vim.api.nvim_set_keymap("n", "l", "", { noremap = true })
+
+-- Unmap hjkl in visual mode
+vim.api.nvim_set_keymap("v", "h", "", { noremap = true })
+vim.api.nvim_set_keymap("v", "j", "", { noremap = true })
+vim.api.nvim_set_keymap("v", "k", "", { noremap = true })
+vim.api.nvim_set_keymap("v", "l", "", { noremap = true })
+
+-- Set j_ mapping
+vim.api.nvim_set_keymap("n", "je", 've"0p', { noremap = true })
+vim.api.nvim_set_keymap("n", "jj", 'viw"0p', { noremap = true })
+vim.api.nvim_set_keymap("n", "j.", "viwp", { noremap = true })
+vim.api.nvim_set_keymap("n", "J", 'dd"0P', { noremap = true, silent = true })
+
 -- Navigate vim panes better
 vim.keymap.set("n", "<c-Up>", ":wincmd k<CR>")
 vim.keymap.set("n", "<c-Down>", ":wincmd j<CR>")
 vim.keymap.set("n", "<c-Left>", ":wincmd h<CR>")
 vim.keymap.set("n", "<c-Right>", ":wincmd l<CR>")
+
+vim.api.nvim_set_keymap("n", "<leader>bm", ":bnext<cr>", { desc = "next [B]uffer", noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+    "n",
+    "<leader>bb",
+    ":bprevious<cr>",
+    { desc = "previous [B]uffer", noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap("n", "<leader>bd", ":bdelete<cr>", { desc = "delete [B]uffer", noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>h", ":nohlsearch<CR>")
 vim.wo.number = true

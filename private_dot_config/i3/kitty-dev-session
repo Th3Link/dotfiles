@@ -1,4 +1,1 @@
-# Create a window and run the specified command in it
-launch zsh
-# Create a window with some environment variables set and run vim in it
-launch tmux 
+launch zsh -c "source ~/.zshrc; zellij attach dev --force-run-commands; exec zsh"
