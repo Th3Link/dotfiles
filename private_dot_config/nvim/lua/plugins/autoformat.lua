@@ -26,12 +26,8 @@ return {
                 }
             end,
             formatters_by_ft = {
-                lua = { "stylua" },
                 -- Conform can also run multiple formatters sequentially
                 python = { "ruff_format" },
-                rust = { "rustfmt" },
-                c = { "clang-format", "--style=file" }, -- Use .clang-format file
-                cpp = { "clang-format", "--style=file" }, -- Use .clang-format file
                 --
                 -- You can use a sub-list to tell conform to run *until* a formatter
                 -- is found.

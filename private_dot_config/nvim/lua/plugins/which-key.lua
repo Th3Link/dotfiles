@@ -6,22 +6,30 @@ return {
             require("which-key").setup()
 
             -- Document existing key chains
-            require("which-key").register({
-                ["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
-                ["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
-                ["<leader>l"] = { name = "[L]sp", _ = "which_key_ignore" },
-                ["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
-                ["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
-                ["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
-                ["<leader>t"] = { name = "[T]oggle", _ = "which_key_ignore" },
-                ["<leader>h"] = { name = "Git [H]unk", _ = "which_key_ignore" },
-                ["<leader>n"] = { name = "[N]avigate", _ = "which_key_ignore" },
-                ["<leader>b"] = { name = "De[B]ugging", _ = "which_key_ignore" },
+            local wk = require("which-key")
+            wk.add({
+                mode = { "n" },
+                { "<leader>b", group = "De[B]ugging" },
+                { "<leader>b_", hidden = true },
+                { "<leader>c", group = "[C]ode" },
+                { "<leader>c_", hidden = true },
+                { "<leader>d", group = "[D]ocument" },
+                { "<leader>d_", hidden = true },
+                { "<leader>h", group = "Git [H]unk" },
+                { "<leader>h_", hidden = true },
+                { "<leader>l", group = "[L]sp" },
+                { "<leader>l_", hidden = true },
+                { "<leader>n", group = "[N]eo Tree" },
+                { "<leader>n_", hidden = true },
+                { "<leader>r", group = "[R]ename" },
+                { "<leader>r_", hidden = true },
+                { "<leader>s", group = "[S]earch" },
+                { "<leader>s_", hidden = true },
+            }, {
+                mode = { "v" },
+                { "<leader>h", group = "Git [H]unk" },
+                { "<leader>h_", hidden = true },
             })
-            -- visual mode
-            require("which-key").register({
-                ["<leader>h"] = { "Git [H]unk" },
-            }, { mode = "v" })
         end,
     },
 }
